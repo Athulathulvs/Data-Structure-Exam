@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<conio.h>
+struct Node
+{
+int data;
+struct Node *link;
+};
+typedef struct Node node;
+node *getnode();
+void main()
+{
+int item,pos,choice,i;
+node *first=NULL,*current,*previous,*temp;
+clrscr();
+do
+{
+  printf("\n \n SINGLY LINKED LIST  OPERATIONS\n ");
+  printf("\n  1.insert at beginning");
+  printf("\n  2.insert at particular position");
+  printf("\n  3.delete at end ");
+  printf("\n  4.display the list");
+  printf("\n  5.exit");
+  printf("\n \n enter your choice:");
+  scanf("%d",&choice);
+  switch(choice)
+{
+   case 1: printf("enter the item to be inserted:");
+	   scanf("%d",&item);
+	   temp=getnode();
+	   temp->data=item;
+	   temp->link=first;
+	   first=temp;
+	   break;
+   case 2:printf("enter the item to be inserted:");
+	  scanf("%d",&item);
+	  printf("\n enter the position to be inserted:");
+	  scanf("%d",&pos);
+	  temp=getnode();
+	  temp->data=item;
+	  current=first;
+	  if(pos==1)
+	  {
+	   temp->link=first;
+	   first=temp;
+	  }
+	  else
+	  {
+	  i=2;
+	  current=first->link;
+	  previous=first;
+	  while(current->link!=NULL)
+	  {
+	    if(pos==i)
+	    {
+	     temp->link=previous->link;
+	     previous->link=temp;
+	     break;
+	    }
+	   previous=current;
+	   current=current->link;
+	   i++;
+	  }
+	 if(current==NULL)
+	 {
+	 temp->link=NULL;
+	 previous->link=temp;
+	}
+	}
+	  break;
+
+   case 3:if(first==NULL)
+	  printf(" \n THE LIST IS EMPTY");
+	  else
+	  {
+	    current=first;
+	    previous=current;
+	    while(current->link!=NULL)
+	    {
+	      previous = current;
+	      current=current->link;
+	    }
+	     previous->link=NULL;
+	     free(current);
+	 }
+	   break;
+
+   case 4:if(first==NULL)
+	  printf("the List is empty");
+	  else
+	  {
+	  printf("Elements in the list are:\n ");
+	  current=first;
+	  while(current!=NULL)
+	  {
+	  printf("%d",current->data) ;
+	  current=current->link;
+	  }
+	  }
+	  break;
+  case 5:exit(0);
+    default:printf("\n invalid choice");
+}
+}
+while(choice!=6);
+getch();
+}
+node *getnode()
+{
+node *newnode;
+newnode=(node*)malloc(sizeof(node));
+return newnode;
+}
+
+
+
+
